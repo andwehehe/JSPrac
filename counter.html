@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Practice</title>
+
+  <style>
+    * {
+      border-radius: 1rem;
+      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      height: 200vh;
+      width: 150vw;
+      align-items: center;
+      flex-direction: row;
+      gap: 5rem;
+
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: solid black 3px;
+      width: 503.7px;
+    }
+
+    div {
+      border-top: solid black 3px;
+      padding: 5px;
+    }
+
+    button {
+      border: 3px solid black;
+      width: 10rem;
+      height: 5rem;
+      font-size: 1.5rem;
+      background-color: aqua;
+    }
+
+    button:hover {
+      cursor: pointer;
+      color: aqua;
+      background-color: black;
+      border-color: aqua;
+    }
+
+    #count {
+      width: 85%;
+      border: solid black 3px;
+      text-align: center;
+      padding: 2rem;
+      font-size: 3rem;
+    }
+
+
+
+
+    .game {
+      padding: 2rem;
+    }
+
+    #score__section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-size: 2rem;
+      width: 100%;
+      border: none;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .player, .computer {
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: solid black 3px;
+      width: 50%;
+      padding: 2rem;
+      gap: 1rem;
+    }
+
+    #player__score, #bot__score {
+      margin: 0;
+      font-weight: bold;
+    }
+
+    #you {
+      color: green;
+    }
+
+    #bot {
+      color: red;
+    }
+
+    #battle {
+      width: 100%;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      border: none;
+    }
+
+    #your__move, #computer__move {
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: solid black 3px;
+      width: 50%;
+      padding: 2rem;
+      gap: 1rem;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .versus {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-inline: 10px;
+    }
+
+    .moves {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 100%;
+      border: none;
+      margin-top: 2rem;
+    }
+
+    #rock {
+      width: 30%;
+      background-color: gray;
+    }
+
+    #rock:hover {
+      background-color: black;
+      color: gray;
+      border-color: gray;
+    }
+
+    #paper {
+      width: 30%;
+      background-color: beige;
+    }
+
+    #paper:hover {
+      background-color: black;
+      color: beige;
+      border-color: beige;
+    }
+
+    #scissor {
+      width: 30%;
+      background-color: silver;
+    }
+
+    #scissor:hover {
+      background-color: black;
+      color: silver;
+      border-color: silver;
+    }
+
+    #fight {
+      width: 96%;
+      border: solid black 3px;
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(11, 157, 11);
+      margin: 1rem 0 0 0;
+      font-weight: bold;
+    }
+
+    #fight:hover {
+      background-color: rgb(78, 240, 78);
+      cursor: pointer;
+      color: white;
+    }
+
+    #outcome {
+      margin: 0rem;
+    }
+
+  </style>
+</head>
+<body>
+  <section>
+    <h1 id="count">0</h1>
+    <div>
+      <button id="decrease">Decrease</button>
+      <button id="reset">Reset</button>
+      <button id="increase">Increase</button>
+    </div>
+  </section>
+
+
+  
+  <section class="game">
+    <h1 id="rpc">
+      Rock Paper Scissor
+    </h1>
+
+    <section id="score__section">
+      <div class="player">
+        <h2 id="you">You</h2>
+        <p id="player__score">0</p>
+      </div>
+      
+      <div class="computer">
+        <h2 id="bot">Bot</h2>
+        <p id="bot__score">0</p>
+      </div>
+    </section>
+
+    <section id="battle">
+      <p id="your__move">❓</p>
+      <p class="versus">VS</p>
+      <p id="computer__move">❓</p>
+    </section>
+
+    <h1 id="outcome"></h1>
+
+    <section class="moves">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissor">Scissor</button>
+    </section>
+
+    <button id="fight">FIGHT</button>
+  </section>
+
+
+
+  <script>
+    let val = document.getElementById("count");
+    let count = 0;
+
+    document.getElementById("decrease").onclick = function() {
+      count--;
+      val.textContent = count;
+    }
+    let res = document.getElementById("reset").onclick = function() {
+      count = 0;
+      val.textContent = count;
+    }
+    let sub = document.getElementById("increase").onclick = function() {
+      count++;
+      val.textContent = count;
+    }
+
+
+    
+
+    let rock = document.getElementById("rock");
+    let paper = document.getElementById("paper");
+    let scissor = document.getElementById("scissor");
+
+    let yourMove = document.getElementById("your__move");
+    let computerMove = document.getElementById("computer__move");
+    let fight = document.getElementById("fight");
+    let outcome = document.getElementById("outcome");
+
+    let playerScore = document.getElementById("player__score");
+    let computerScore = document.getElementById("bot__score");
+
+    const playerRockMove = "🤜";
+    const playerPaperMove = "🫱";
+    const scissorMove = "✌️";
+
+    const computerRockMove = "🤛";
+    const computerPaperMove = "🫲";
+
+    let playerMove;
+
+    rock.onclick = function() {
+      yourMove.textContent = playerRockMove;
+      playerMove = playerRockMove;
+    }
+
+    paper.onclick = function() {
+      yourMove.textContent = playerPaperMove;
+      playerMove = playerPaperMove;
+    }
+
+    scissor.onclick = function() {
+      yourMove.textContent = scissorMove;
+      playerMove = scissorMove;
+    }
+
+   
+    let playerScoreCount = 0;
+    let computerScoreCount = 0;
+    fight.onclick = function() {
+      let random = Math.floor((Math.random() * 3) + 1);
+      let botMove;
+      switch(random) {
+        case 1:
+          computerMove.textContent = computerRockMove;
+          botMove = computerRockMove;
+          break;
+        case 2:
+          computerMove.textContent = computerPaperMove;
+          botMove = computerPaperMove;
+          break;
+        case 3:
+          computerMove.textContent = scissorMove;
+          botMove = scissorMove;
+          break;
+      }
+
+      if(
+        (botMove === computerRockMove && playerMove === playerRockMove) ||
+        (botMove === computerPaperMove && playerMove === playerPaperMove) ||
+        (botMove === scissorMove && playerMove === scissorMove)
+      ) {
+        outcome.textContent = "TIE";
+        outcome.style.color = "gray";
+        yourMove.style.backgroundColor = "gray";
+        computerMove.style.backgroundColor = "gray";
+      } else if(
+        (botMove === computerRockMove && playerMove === playerPaperMove) ||
+        (botMove === computerPaperMove && playerMove === scissorMove) ||
+        (botMove === scissorMove && playerMove === playerRockMove)
+      ) {
+        outcome.textContent = "PLAYER WON";
+        outcome.style.color = "rgb(78, 240, 78)";
+        yourMove.style.backgroundColor = "rgb(78, 240, 78)";
+        computerMove.style.backgroundColor = "red";
+        playerScoreCount++
+        playerScore.textContent = playerScoreCount;
+      } else if(
+        (botMove === computerRockMove && playerMove === scissorMove) ||
+        (botMove === computerPaperMove && playerMove === playerRockMove) ||
+        (botMove === scissorMove && playerMove === playerPaperMove)
+      ) {
+        outcome.textContent = "COMPUTER WON";
+        outcome.style.color = "red";
+        yourMove.style.backgroundColor = "red";
+        computerMove.style.backgroundColor = "rgb(78, 240, 78)";
+        computerScoreCount++
+        computerScore.textContent = computerScoreCount;
+      }
+
+     
+    }
+
+
+
+  </script>
+</body>
+</html>
