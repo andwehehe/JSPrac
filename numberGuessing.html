@@ -171,7 +171,7 @@
     }
 
     #rules, #clue {
-      height: 2rem;
+      height: 3rem;
       text-align: center;
     }
 
@@ -204,8 +204,8 @@
     </section>
 
     <section id="yourGuess">
-      <label for="guessInput">Enter Your Guess</label>
       <p id="clue"></p>
+      <label for="guessInput">Enter Your Guess</label>
       <input type="number" name="guessInput" id="guessInput" placeholder="Enter Guess">
       <button type="submit" id="submit">Enter</button>
       <button id="reveal">Reveal</button>
@@ -283,17 +283,21 @@
       }
 
       submit.onclick = function() {
+        let attempt = 0;
         if(Number(guessInput.value) === randomNum) {
           screen.textContent = randomNum;
           screen.style.color = "green";
-          clue.textContent = "> > Congratulations, You Guessed It! < <"
+          attempt++;
+          clue.textContent = `> > Congratulations, You Guessed It!< < attempts: ${attempt}`;
           clue.style.color = "green";
         } else if(Number(guessInput.value) < randomNum) {
           clue.textContent = "Go Higher!!";
           clue.style.color = "blue";
+          attempt++;
         } else if(Number(guessInput.value) > randomNum) {
           clue.textContent = "Go Lower!!";
           clue.style.color = "cyan";
+          attempt++;
         }
       }
 
