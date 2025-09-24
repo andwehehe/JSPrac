@@ -282,8 +282,8 @@
         clue.style.color = "red";
       }
 
+      let attempt = 0;
       submit.onclick = function() {
-        let attempt = 0;
         if(Number(guessInput.value) === randomNum) {
           screen.textContent = randomNum;
           screen.style.color = "green";
@@ -304,9 +304,11 @@
       reset.onclick = function() {
         screen.textContent = "❓❓❓";
         clue.textContent = "";
-        maxVal.value = 0;
-        minVal.value = 0;
+        maxVal.value = "";
+        minVal.value = "";
         rules.textContent = "";
+        attempt = 0;
+        guessInput.value = "";
       }
     }
   </script>
