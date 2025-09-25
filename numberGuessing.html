@@ -175,6 +175,10 @@
       text-align: center;
     }
 
+    #attempts {
+      color: green;
+    }
+
   </style>
 
 </head>
@@ -204,6 +208,7 @@
     </section>
 
     <section id="yourGuess">
+      <p id="attempts">remaining attemps: 5</p>
       <p id="clue"></p>
       <label for="guessInput">Enter Your Guess</label>
       <input type="number" name="guessInput" id="guessInput" placeholder="Enter Guess">
@@ -262,6 +267,9 @@
     const submit = document.getElementById("submit");
     const clue = document.getElementById("clue");
     const reset = document.getElementById("reset");
+    const attempts = document.getElementById("attempts");
+
+    let attempt = 5;
 
     start.onclick = function() {
       if(Number(maxVal.value) <= Number(minVal.value) || Number(minVal.value) < 0) {
@@ -282,22 +290,37 @@
         clue.style.color = "red";
       }
 
-      let attempt = 0;
       submit.onclick = function() {
+        if(attempt < 1) {
+          return;
+        }
+
         if(Number(guessInput.value) === randomNum) {
           screen.textContent = randomNum;
           screen.style.color = "green";
-          attempt++;
-          clue.textContent = `> > Congratulations, You Guessed It!< < attempts: ${attempt}`;
+          attempt--;
+          attempts.textContent = `remaining attempts: ${attempt}`;
+          clue.textContent = `> > Congratulations, You Guessed It!< <`;
           clue.style.color = "green";
         } else if(Number(guessInput.value) < randomNum) {
           clue.textContent = "Go Higher!!";
           clue.style.color = "blue";
-          attempt++;
+          attempt--;
+          attempts.textContent = `remaining attempts: ${attempt}`;
         } else if(Number(guessInput.value) > randomNum) {
           clue.textContent = "Go Lower!!";
           clue.style.color = "cyan";
-          attempt++;
+          attempt--;
+          attempts.textContent = `remaining attempts: ${attempt}`;
+        }
+
+        if(attempt < 1) {
+          attempts.style.color = "red";
+          screen.textContent = randomNum;
+          screen.style.color = "red";
+          clue.textContent = "! ! You Lose ! !";
+          clue.style.color = "red";
+          return;
         }
       }
 
@@ -307,8 +330,10 @@
         maxVal.value = "";
         minVal.value = "";
         rules.textContent = "";
-        attempt = 0;
         guessInput.value = "";
+        attempt = 5;
+        attempts.textContent = `remaining attempts: ${attempt}`;
+        attempts.style.color = "green";
       }
     }
   </script>
