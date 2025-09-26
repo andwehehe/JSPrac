@@ -286,6 +286,8 @@
     const computerRockMove = "🤛";
     const computerPaperMove = "🫲";
 
+    const resetMove = "❓";
+
     let playerMove;
 
     rock.onclick = function() {
@@ -307,6 +309,16 @@
     let playerScoreCount = 0;
     let computerScoreCount = 0;
     fight.onclick = function() {
+      if(fight.textContent == "Play Again") {
+        yourMove.textContent = resetMove;
+        computerMove.textContent = resetMove;
+        yourMove.style.backgroundColor = "white";
+        computerMove.style.backgroundColor = "white";
+        playerScore.textContent = 0;
+        computerScore.textContent = 0;
+        return;
+      }
+
       let random = Math.floor((Math.random() * 3) + 1);
       let botMove;
       switch(random) {
@@ -357,7 +369,17 @@
         computerScore.textContent = computerScoreCount;
       }
 
-     
+      if(playerScoreCount === 10) {
+        outcome.textContent = "> > VICTORY < <";
+        outcome.style.color = "green";
+        fight.textContent = "Play Again";
+        return;
+      } else if(computerScoreCount === 10) {
+        outcome.textContent = "! ! DEFEAT ! !";
+        outcom.style.color = "red";
+        fight.textContent = "Play Again"
+        return;
+      }
     }
 
 
