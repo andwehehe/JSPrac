@@ -293,30 +293,47 @@
     rock.onclick = function() {
       yourMove.textContent = playerRockMove;
       playerMove = playerRockMove;
+      reset();
     }
 
     paper.onclick = function() {
       yourMove.textContent = playerPaperMove;
       playerMove = playerPaperMove;
+      reset();
     }
 
     scissor.onclick = function() {
       yourMove.textContent = scissorMove;
       playerMove = scissorMove;
+      reset();
+    }
+
+    function reset() {
+      computerMove.textContent = resetMove;
+      yourMove.style.backgroundColor = "white";
+      computerMove.style.backgroundColor = "white";
+      outcome.textContent = "";
     }
 
    
     let playerScoreCount = 0;
     let computerScoreCount = 0;
     fight.onclick = function() {
+
+      if(yourMove.textContent === resetMove) {
+        outcome.textContent = "! ! Select a move ! !";
+        outcome.style.color = "red";
+        return;
+      }
+
       if(fight.textContent == "Play Again") {
+        reset();
         yourMove.textContent = resetMove;
-        computerMove.textContent = resetMove;
-        yourMove.style.backgroundColor = "white";
-        computerMove.style.backgroundColor = "white";
         playerScore.textContent = 0;
         computerScore.textContent = 0;
-        outcome.textContent = "";
+        playerScoreCount = 0;
+        computerScoreCount = 0;
+        fight.textContent = "FIGHT";
         return;
       }
 
@@ -377,8 +394,8 @@
         return;
       } else if(computerScoreCount === 10) {
         outcome.textContent = "! ! DEFEAT ! !";
-        outcom.style.color = "red";
-        fight.textContent = "Play Again"
+        outcome.style.color = "red";
+        fight.textContent = "Play Again";
         return;
       }
     }
