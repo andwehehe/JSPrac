@@ -15,12 +15,10 @@
     body {
       display: flex;
       justify-content: center;
-      height: 200vh;
-      width: 150vw;
       align-items: center;
       flex-direction: row;
       gap: 5rem;
-
+      padding-top: 4rem;
     }
 
     section {
@@ -43,24 +41,6 @@
       font-size: 1.5rem;
       background-color: aqua;
     }
-
-    button:hover {
-      cursor: pointer;
-      color: aqua;
-      background-color: black;
-      border-color: aqua;
-    }
-
-    #count {
-      width: 85%;
-      border: solid black 3px;
-      text-align: center;
-      padding: 2rem;
-      font-size: 3rem;
-    }
-
-
-
 
     .game {
       padding: 2rem;
@@ -147,21 +127,17 @@
       background-color: gray;
     }
 
-    #rock:hover {
-      background-color: black;
-      color: gray;
-      border-color: gray;
-    }
-
     #paper {
       width: 30%;
       background-color: beige;
     }
 
-    #paper:hover {
-      background-color: black;
-      color: beige;
-      border-color: beige;
+    #paper:hover, 
+    #scissor:hover,
+    #rock:hover {
+      background-color: aqua;
+      color: black;
+      border-color: black;
     }
 
     #scissor {
@@ -169,13 +145,7 @@
       background-color: silver;
     }
 
-    #scissor:hover {
-      background-color: black;
-      color: silver;
-      border-color: silver;
-    }
-
-    #fight {
+    #fight, #changeTheme {
       width: 96%;
       border: solid black 3px;
       height: 3rem;
@@ -193,6 +163,16 @@
       color: white;
     }
 
+    #changeTheme:hover {
+      background-color: rgb(78, 240, 78);
+      cursor: pointer;
+      color: white;
+    }
+
+    #changeTheme {
+      background-color: gray;
+    }
+
     #outcome {
       margin: 0rem;
     }
@@ -200,17 +180,6 @@
   </style>
 </head>
 <body>
-  <section>
-    <h1 id="count">0</h1>
-    <div>
-      <button id="decrease">Decrease</button>
-      <button id="reset">Reset</button>
-      <button id="increase">Increase</button>
-    </div>
-  </section>
-
-
-  
   <section class="game">
     <h1 id="rpc">
       Rock Paper Scissor
@@ -243,30 +212,12 @@
     </section>
 
     <button id="fight">FIGHT</button>
+    <button id="changeTheme">Change Theme</button>
   </section>
 
 
 
   <script>
-    let val = document.getElementById("count");
-    let count = 0;
-
-    document.getElementById("decrease").onclick = function() {
-      count--;
-      val.textContent = count;
-    }
-    let res = document.getElementById("reset").onclick = function() {
-      count = 0;
-      val.textContent = count;
-    }
-    let sub = document.getElementById("increase").onclick = function() {
-      count++;
-      val.textContent = count;
-    }
-
-
-    
-
     let rock = document.getElementById("rock");
     let paper = document.getElementById("paper");
     let scissor = document.getElementById("scissor");
@@ -274,17 +225,18 @@
     let yourMove = document.getElementById("your__move");
     let computerMove = document.getElementById("computer__move");
     let fight = document.getElementById("fight");
+    let changeTheme = document.getElementById("changeTheme");
     let outcome = document.getElementById("outcome");
 
     let playerScore = document.getElementById("player__score");
     let computerScore = document.getElementById("bot__score");
 
-    const playerRockMove = "🤜";
-    const playerPaperMove = "🫱";
-    const scissorMove = "✌️";
+    let playerRockMove = "🤜";
+    let playerPaperMove = "🫱";
+    let scissorMove = "✌️";
 
-    const computerRockMove = "🤛";
-    const computerPaperMove = "🫲";
+    let computerRockMove = "🤛";
+    let computerPaperMove = "🫲";
 
     const resetMove = "❓";
 
@@ -400,7 +352,21 @@
       }
     }
 
+    changeTheme.onclick = function() {
+      rock.textContent = "Fire";
+      paper.textContent = "Water";
+      scissor.textContent = "Grass";
 
+      rock.style.backgroundColor = "orangered";
+      paper.style.backgroundColor = "aqua";
+      scissor.style.backgroundColor = "lime";
+
+      playerRockMove = "🔥";
+      playerPaperMove = "💦";
+      scissorMove = "🌱";
+      computerRockMove = "🔥";
+      computerPaperMove = "💦";
+    }
 
   </script>
 </body>
